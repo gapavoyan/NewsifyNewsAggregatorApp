@@ -2,7 +2,7 @@ import React from 'react'
 
 function Category({category,categoryChange}) {
     const categories = [
-        { name: "", title: "All" },
+        { name: "", title: "US" },
         { name: "business", title: "Business" },
         { name: "health", title: "Health" },
         { name: "science", title: "Science" },
