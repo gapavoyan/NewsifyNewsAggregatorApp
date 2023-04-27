@@ -5,14 +5,18 @@ import './App.css'
 import Header from './components/header'
 import Home from './components/home'
 import Footer from './components/footer'
+import store from "./store"
 
+import { Provider } from 'react-redux'
 function App() {
   return (
-    <>
-     <Header/>
-     <Home/>
-     <Footer/>
-    </>
+    <div>
+      <Provider store={store}>
+      <Header/>
+      <Home />
+      <Footer />
+      </Provider>
+    </div>
   )
 }
 
