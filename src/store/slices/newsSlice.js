@@ -6,8 +6,8 @@ const newsSlice = createSlice({
         news:[],
     },
     reducers:{
-        addToNewsCart(state,action){
-
+        addToNewsCart:(state,action)=>{
+            state.news.push(action.payload)
         }
     },
 })

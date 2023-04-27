@@ -4,25 +4,33 @@ import axios from 'axios';
 import Country from './country';
 import Popup from './popup';
 import Loading from './loading';
+import Pagination from './pagination';
+import { useDispatch } from 'react-redux';
+import { addToNewsCart } from '../store/slices/newsSlice';
 
 function Home() {
     const API_Key = "a8b2d776ec124b06beea0b825e257df0"
     const [data, setData] = useState([]);
+    const[page,setPage] = useState(1);
+    const[pageSize,setPageSize] = useState(10);
+    const[totalPage,setTotalPage] = useState(0)
     const [category, setCategory] = useState("");
     const [country, setCountry] = useState("us")
     const [loading, setLoading] = useState(false)
     const [selectedDataModal, setSelectedDataModal] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const dispatch = useDispatch()
     useEffect(() => {
         setLoading(true)
-        axios.get(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${API_Key}`)
+        axios.get(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&page=${page}&pageSize=${pageSize}&apiKey=${API_Key}`)
             .then((res) => {
                 setData(res.data.articles)
+                setTotalPage(res.data.totalResults)
             })
             .finally(() => {
                 setLoading(false)
             })
-    }, [category, country])
+    }, [category, country,page,totalPage,pageSize])
 
     const categoryChange = (category) => {
         setCategory(category);
@@ -37,6 +45,9 @@ function Home() {
     const handleCloseModal = () => {
         setIsModalOpen(false);
     };
+    const pageChange =  (page) => {
+        setPage(page)
+    }
     const handleShare =  (url) => {
              navigator.share({
                 title: 'My Website',
@@ -44,6 +55,9 @@ function Home() {
                 url: url.url,
             });
     }
+    function add(item) {
+        dispatch(addToNewsCart(item))
+      }
     if (loading) {
         return (
             <Loading />
@@ -67,7 +81,7 @@ function Home() {
                                     <div className=''>
                                         <button className='bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onClick={() => handleClick(items)}>Read More</button>
                                         <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold ml-2 py-2 px-4 rounded" onClick={()=>handleShare(items)}>Share </button>
-                                        <button><i className="fa-regular fa-heart"></i></button>
+                                        <button onClick={() => add(items)}><i className="fa-regular fa-heart"></i></button>
                                     </div>
                                     {
                                         isModalOpen && <Popup dataModal={selectedDataModal} handleClose={handleCloseModal} />
@@ -79,6 +93,7 @@ function Home() {
                     })
                 }
             </div>
+            <Pagination page = {page} totalPage= {Math.ceil(totalPage/pageSize)} pageChange={pageChange}/>
         </div>
     )
 }
