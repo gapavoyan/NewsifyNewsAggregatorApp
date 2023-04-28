@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import SearchForm from './searchForm'
-import { NavLink } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import React, { useState } from 'react';
+import SearchForm from '../search/searchForm';
+import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 function Header() {
-  const select = useSelector((store) => store.news.news)
+    const select = useSelector((store) => store.news.news)
     const [value, setValue] = useState('')
     const hendlSearch = (newValue) => {
         setValue(newValue)
@@ -20,6 +20,5 @@ function Header() {
             </header>
         </div>
     )
-}
-
+};
 export default Header

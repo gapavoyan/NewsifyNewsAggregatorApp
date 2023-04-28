@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import Category from './category'
+import React, { useEffect, useState } from 'react';
+import Category from '../filterCategoryCountry/category'
 import axios from 'axios';
-import Country from './country';
-import Popup from './popup';
-import Loading from './loading';
-import Pagination from './pagination';
+import Country from '../filterCategoryCountry/country';
+import Popup from '../modal/popup';
+import Loading from '../loading/loading';
+import Pagination from '../pagination/pagination';
 import { useDispatch } from 'react-redux';
-import { addToNewsCart } from '../store/slices/newsSlice';
+import { addToNewsCart } from '../../store/slices/newsSlice';
 function Home() {
     // const API_Key = "a8b2d776ec124b06beea0b825e257df0"
     const API_Key = "390d1170548f455d809d4b8106dd9cdb"
@@ -32,7 +32,6 @@ function Home() {
             })
     },
         [category, country, page, totalPage, pageSize])
-
     const categoryChange = (category) => {
         setCategory(category);
     };
@@ -48,22 +47,22 @@ function Home() {
     };
     const pageChange = (page) => {
         setPage(page)
-    }
+    };
     const handleShare = (url) => {
         navigator.share({
             title: 'My Website',
             text: 'Check out my website!',
             url: url.url,
         });
-    }
+    };
     function add(item) {
         dispatch(addToNewsCart(item))
-    }
+    };
     if (loading) {
         return (
             <Loading />
         )
-    }
+    };
     return (
         <div className='bg-gray-200'>
             <div className='flex items-center flex-col'>
@@ -89,14 +88,12 @@ function Home() {
                                     }
                                 </div>
                             </div>
-
                         )
                     })
                 }
             </div>
             <div>
-
-            <Pagination page={page} totalPage={Math.ceil(totalPage / pageSize)} pageChange={pageChange} />
+                <Pagination page={page} totalPage={Math.ceil(totalPage / pageSize)} pageChange={pageChange} />
             </div>
         </div>
     )
