@@ -1,5 +1,6 @@
 import React from 'react';
 function Popup(props) {
+    const errorImg = "https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled.png"
     return (
         <div className="fixed z-10 inset-0 overflow-y-auto">
             <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -9,7 +10,7 @@ function Popup(props) {
                 <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full">
                     <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                         <div className="sm:flex sm:items-start">
-                            <img className="h-auto w-full sm:w-1/3 sm:h-auto mx-auto" src={props.dataModal.urlToImage} alt="" />
+                            <img className="h-auto w-full sm:w-1/3 sm:h-auto mx-auto" src={props.dataModal.urlToImage?props.dataModal.urlToImage:`${errorImg}`} alt="" />
                             <div className="mt-3 sm:mt-0 sm:ml-4 sm:text-left">
                                 <h3 className="text-2xl leading-6 font-medium text-gray-900">
                                     {props.dataModal.title}

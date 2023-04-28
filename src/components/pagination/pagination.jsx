@@ -4,8 +4,8 @@ function Pagination({ page, totalPage, pageChange }) {
     for (let i = 1; i <= totalPage; i++) {
         total.push(i)
     }
-    if (total.length > 10) {
-        total = total.slice(0, 10)
+    if (total.length > 7) {
+        total = total.slice(0, 7)
     }
     return (
         <div className='flex justify-center items-center'>
