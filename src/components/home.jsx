@@ -7,13 +7,12 @@ import Loading from './loading';
 import Pagination from './pagination';
 import { useDispatch } from 'react-redux';
 import { addToNewsCart } from '../store/slices/newsSlice';
-
 function Home() {
     const API_Key = "a8b2d776ec124b06beea0b825e257df0"
     const [data, setData] = useState([]);
-    const[page,setPage] = useState(1);
-    const[pageSize,setPageSize] = useState(10);
-    const[totalPage,setTotalPage] = useState(0)
+    const [page, setPage] = useState(1);
+    const [pageSize, setPageSize] = useState(10);
+    const [totalPage, setTotalPage] = useState(0)
     const [category, setCategory] = useState("");
     const [country, setCountry] = useState("us")
     const [loading, setLoading] = useState(false)
@@ -30,7 +29,8 @@ function Home() {
             .finally(() => {
                 setLoading(false)
             })
-    }, [category, country,page,totalPage,pageSize])
+    },
+    [category, country, page, totalPage, pageSize])
 
     const categoryChange = (category) => {
         setCategory(category);
@@ -45,19 +45,19 @@ function Home() {
     const handleCloseModal = () => {
         setIsModalOpen(false);
     };
-    const pageChange =  (page) => {
+    const pageChange = (page) => {
         setPage(page)
     }
-    const handleShare =  (url) => {
-             navigator.share({
-                title: 'My Website',
-                text: 'Check out my website!',
-                url: url.url,
-            });
+    const handleShare = (url) => {
+        navigator.share({
+            title: 'My Website',
+            text: 'Check out my website!',
+            url: url.url,
+        });
     }
     function add(item) {
         dispatch(addToNewsCart(item))
-      }
+    }
     if (loading) {
         return (
             <Loading />
@@ -80,7 +80,7 @@ function Home() {
                                     <h1 className="mb-3 font-bold  text-gray-700 dark:text-gray-400">{items.author}</h1>
                                     <div className=''>
                                         <button className='bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onClick={() => handleClick(items)}>Read More</button>
-                                        <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold ml-2 py-2 px-4 rounded" onClick={()=>handleShare(items)}>Share </button>
+                                        <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold ml-2 py-2 px-4 rounded" onClick={() => handleShare(items)}>Share </button>
                                         <button onClick={() => add(items)}><i className="fa-regular fa-heart"></i></button>
                                     </div>
                                     {
@@ -93,7 +93,7 @@ function Home() {
                     })
                 }
             </div>
-            <Pagination page = {page} totalPage= {Math.ceil(totalPage/pageSize)} pageChange={pageChange}/>
+            <Pagination page={page} totalPage={Math.ceil(totalPage / pageSize)} pageChange={pageChange} />
         </div>
     )
 }

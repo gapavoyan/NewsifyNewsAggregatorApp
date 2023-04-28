@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Country({ country, countryChange }) {
+export default function Country({ country, countryChange }) {
     const countries = [
         { name: "us", title: "US" },
         { name: "fr", title: "France" },
@@ -23,5 +23,3 @@ function Country({ country, countryChange }) {
         </div>
     )
 }
-
-export default Country
