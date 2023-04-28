@@ -1,12 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import Header from './header';
-import Footer from './footer';
 import axios from 'axios';
+import Popup from './popup';
 function ResultsComponent() {
-  const API_Key = "a8b2d776ec124b06beea0b825e257df0"
+  // const API_Key = "a8b2d776ec124b06beea0b825e257df0"
+  const API_Key = "390d1170548f455d809d4b8106dd9cdb"
   const { query } = useParams()
   const[data,setData]= useState([])
+  const [selectedDataModal, setSelectedDataModal] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleClick = (dataModal) => {
+    setSelectedDataModal(dataModal);
+    setIsModalOpen(true);
+};
+const handleCloseModal = () => {
+    setIsModalOpen(false);
+};
+const handleShare = (url) => {
+  navigator.share({
+      title: 'My Website',
+      text: 'Check out my website!',
+      url: url.url,
+  })};
   useEffect(() => {
     axios.get(`https://newsapi.org/v2/everything?q=${query}&apiKey=${API_Key}`)
       .then((results) => {
@@ -30,9 +46,9 @@ function ResultsComponent() {
                             <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold ml-2 py-2 px-4 rounded" onClick={() => handleShare(items)}>Share </button>
                              <button onClick={() => add(items)}><i className="fa-regular fa-heart"></i></button>
                         </div>
-                        {/* {
+                        {
                             isModalOpen && <Popup dataModal={selectedDataModal} handleClose={handleCloseModal} />
-                        } */}
+                        }
                     </div>
                 </div>
             )
@@ -40,9 +56,7 @@ function ResultsComponent() {
         
         )
     }
-<Footer/>
 </div>
   )
 }
-
 export default ResultsComponent

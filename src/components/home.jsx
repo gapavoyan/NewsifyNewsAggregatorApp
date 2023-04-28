@@ -8,7 +8,8 @@ import Pagination from './pagination';
 import { useDispatch } from 'react-redux';
 import { addToNewsCart } from '../store/slices/newsSlice';
 function Home() {
-    const API_Key = "a8b2d776ec124b06beea0b825e257df0"
+    // const API_Key = "a8b2d776ec124b06beea0b825e257df0"
+    const API_Key = "390d1170548f455d809d4b8106dd9cdb"
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
@@ -30,7 +31,7 @@ function Home() {
                 setLoading(false)
             })
     },
-    [category, country, page, totalPage, pageSize])
+        [category, country, page, totalPage, pageSize])
 
     const categoryChange = (category) => {
         setCategory(category);
@@ -78,10 +79,10 @@ function Home() {
                                 <div className="flex flex-col justify-between p-4 leading-normal">
                                     <h5 className="mb-2 text-2xl  tracking-tight text-gray-900 dark:text-white">{items.title}</h5>
                                     <h1 className="mb-3 font-bold  text-gray-700 dark:text-gray-400">{items.author}</h1>
-                                    <div className=''>
-                                        <button className='bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onClick={() => handleClick(items)}>Read More</button>
-                                        <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold ml-2 py-2 px-4 rounded" onClick={() => handleShare(items)}>Share </button>
-                                        <button onClick={() => add(items)}><i className="fa-regular fa-heart"></i></button>
+                                    <div className='flex justify-between'>
+                                        <button className='bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded' onClick={() => handleClick(items)}>Read More</button>
+                                        <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold ml-2 py-2 px-2 rounded" onClick={() => handleShare(items)}>Share </button>
+                                        <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold ml-2 py-2 px-2 rounded" onClick={() => add(items)}>Add To Basket</button>
                                     </div>
                                     {
                                         isModalOpen && <Popup dataModal={selectedDataModal} handleClose={handleCloseModal} />
