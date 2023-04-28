@@ -3,13 +3,20 @@ import { useParams } from 'react-router-dom';
 import Header from './header';
 import axios from 'axios';
 import Popup from './popup';
+import Pagination from './pagination';
+import Loading from './loading';
+
 function ResultsComponent() {
   // const API_Key = "a8b2d776ec124b06beea0b825e257df0"
   const API_Key = "390d1170548f455d809d4b8106dd9cdb"
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [totalPage, setTotalPage] = useState(0)
   const { query } = useParams()
   const[data,setData]= useState([])
   const [selectedDataModal, setSelectedDataModal] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const[loading,setLoading] = useState(false)
   const handleClick = (dataModal) => {
     setSelectedDataModal(dataModal);
     setIsModalOpen(true);
@@ -17,6 +24,9 @@ function ResultsComponent() {
 const handleCloseModal = () => {
     setIsModalOpen(false);
 };
+const pageChange = (page) => {
+  setPage(page)
+}
 const handleShare = (url) => {
   navigator.share({
       title: 'My Website',
@@ -24,12 +34,21 @@ const handleShare = (url) => {
       url: url.url,
   })};
   useEffect(() => {
-    axios.get(`https://newsapi.org/v2/everything?q=${query}&apiKey=${API_Key}`)
+    setLoading(true)
+    axios.get(`https://newsapi.org/v2/everything?q=${query}&page=${page}&pageSize=${pageSize}&apiKey=${API_Key}`)
       .then((results) => {
         setData(results.data.articles)
+        setTotalPage(results.data.totalResults)
         // console.log(data);
+      }).finally(()=>{
+        setLoading(false)
       })
-  }, [query])
+  }, [query, page, totalPage, pageSize])
+  if (loading) {
+    return (
+        <Loading/>
+    )
+}
   return (
     <div className='flex flex-wrap justify-center mt-32  gap-y-12 gap-x-12'>
     <Header/>
@@ -52,10 +71,12 @@ const handleShare = (url) => {
                     </div>
                 </div>
             )
-        }
+          }
         
-        )
-    }
+          )
+        }
+
+<Pagination page={page} totalPage={Math.ceil(totalPage / pageSize)} pageChange={pageChange} />
 </div>
   )
 }
