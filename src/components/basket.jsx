@@ -5,7 +5,13 @@ function Basket() {
     const select = useSelector((store)=>store.news.news)
     console.log(select);
   return (
-    <div>Basket</div>
+    <div>
+      {
+        select.map((el)=>
+          <h1>{el.title}</h1>
+        )
+      }
+    </div>
   )
 }
 
