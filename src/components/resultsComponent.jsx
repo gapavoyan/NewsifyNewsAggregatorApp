@@ -5,8 +5,10 @@ import axios from 'axios';
 import Popup from './popup';
 import Pagination from './pagination';
 import Loading from './loading';
-
+import { useDispatch } from 'react-redux';
+import { addToNewsCart } from '../store/slices/newsSlice';
 function ResultsComponent() {
+  const dispatch = useDispatch()
   // const API_Key = "a8b2d776ec124b06beea0b825e257df0"
   const API_Key = "390d1170548f455d809d4b8106dd9cdb"
   const [page, setPage] = useState(1);
@@ -49,6 +51,9 @@ const handleShare = (url) => {
         <Loading/>
     )
 }
+function add(items) {
+  dispatch(addToNewsCart(items))
+}
   return (
     <div className='flex flex-wrap justify-center mt-32  gap-y-12 gap-x-12'>
     <Header/>
@@ -63,7 +68,7 @@ const handleShare = (url) => {
                         <div className=''>
                             <button className='bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onClick={() => handleClick(items)}>Read More</button>
                             <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold ml-2 py-2 px-4 rounded" onClick={() => handleShare(items)}>Share </button>
-                             <button onClick={() => add(items)}><i className="fa-regular fa-heart"></i></button>
+                            <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold ml-2 py-2 px-2 rounded" onClick={()=>add(items)} >Add To Basket</button>
                         </div>
                         {
                             isModalOpen && <Popup dataModal={selectedDataModal} handleClose={handleCloseModal} />

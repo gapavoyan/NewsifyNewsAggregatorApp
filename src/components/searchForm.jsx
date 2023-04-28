@@ -7,8 +7,11 @@ function SearchForm({ onSearch, onSubmit }) {
 
   const handleSearch = (e) => {
     e.preventDefault();
+   if (query === "") return
     navigate(`/search/${query}`)
     onSearch(query);
+ 
+    
   };
     return (
         <div className="relative mx-auto text-gray-600">

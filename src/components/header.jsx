@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import SearchForm from './searchForm'
 import { NavLink } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 function Header() {
+  const select = useSelector((store) => store.news.news)
     const [value, setValue] = useState('')
     const hendlSearch = (newValue) => {
         setValue(newValue)
@@ -13,6 +15,7 @@ function Header() {
                     <NavLink to="/home" className="text-3xl font-semibold" >News App</NavLink>
                     <SearchForm onSearch={hendlSearch} />
                     <NavLink to="/basket" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"><i className="fa-solid fa-basket-shopping"></i></NavLink>
+                    <span className='relative -top-2 -left-3 text-blue-300 text-xs'>{select.length}</span>
                 </div>
             </header>
         </div>

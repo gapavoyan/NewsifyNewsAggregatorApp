@@ -11,7 +11,7 @@ function Basket() {
     return(
       <div className="flex items-center justify-center h-screen">
         <Header/>
-      <h2 className="text-6xl text-gray-500">Your store is currently empty.</h2>
+      <h2 className="text-6xl text-gray-500">Your Basket is currently empty.</h2>
     </div>
     )
   }
@@ -28,7 +28,7 @@ function Basket() {
           <div className="flex flex-col justify-between p-4 leading-normal">
             <h5 className="mb-2 text-2xl tracking-tight text-gray-900 dark:text-white">{items.title}</h5>
             <h1 className="mb-3 font-bold text-gray-700 dark:text-gray-400">{items.author}</h1>
-            <button onClick={() => remove(items)}>Delete News</button>
+            <button  className="bg-blue-600 hover:bg-blue-700 text-white font-bold ml-2 py-2 px-2 rounded" onClick={() => remove(items)}>Delete News</button>
           </div>
         </div>
       ))}
